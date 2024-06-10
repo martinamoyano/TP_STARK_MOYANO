@@ -34,6 +34,22 @@ def totalizar_lista(lista: list) -> float:
         total += elem
     return total
 
+def totalizar_lista_key(lista: list, key) -> float:
+    """
+    Calcula la suma total de los elementos en una lista.
+
+    Args:
+    - lista (list): Lista de elementos numéricos.
+
+    Returns:
+    - float: Suma total de los elementos en la lista.
+    """
+    validar_lista(lista)
+    total = 0
+    for elem in lista:
+        total += elem[key]
+    return total
+
 def calcular_promedio(lista: list) -> float:
     """
     Calcula el promedio de los elementos en una lista.
@@ -47,6 +63,23 @@ def calcular_promedio(lista: list) -> float:
     validar_lista(lista)
     tam = len(lista)
     total = totalizar_lista(lista)
+    promedio = total / tam
+    return promedio
+
+def calcular_promedio_key(lista: list, key) -> float:
+    """
+    Calcula el promedio de los elementos en una lista.
+
+    Args:
+    - lista (list): Lista de elementos numéricos.
+    key: campo
+
+    Returns:
+    - float: Promedio de los elementos en la lista.
+    """
+    validar_lista(lista)
+    tam = len(lista)
+    total = totalizar_lista_key(lista, key)
     promedio = total / tam
     return promedio
 
@@ -98,7 +131,9 @@ def mostrar_lista(lista: list) -> None:
     """
     validar_lista(lista)
     for elem in lista:
+        print(" ")
         print(elem)
+
 
 def mostrar_diccionario(diccionario: dict) -> None:
     """
@@ -114,7 +149,7 @@ def mostrar_diccionario(diccionario: dict) -> None:
         print(f"{key}: {diccionario[key]}")
 
 ''' MÁXIMOS Y MÍNIMOS '''
-def calcular_maximo(lista: list) -> int:
+def calcular_maximo(lista: list, key) -> int:
     """
     Encuentra el valor máximo en una lista de elementos numéricos.
 
@@ -127,11 +162,11 @@ def calcular_maximo(lista: list) -> int:
     validar_lista(lista)
     maximo = lista[0] 
     for elemento in lista:
-        if maximo < elemento:
-            maximo = elemento
+        if maximo < elemento[key]:
+            maximo = elemento[key]
     return maximo
 
-def calcular_maximo_dict(lista: list, campo: str) -> dict:
+def calcular_maximo_dict(lista: list, campo:str) -> dict:
     """
     Encuentra el diccionario con el valor máximo en un campo específico.
 
@@ -240,6 +275,14 @@ def ordenar_lista(lista: list, ascendente: bool = True) -> list:
     else:
         ordenar_descendente(lista)  
     return lista
+
+def ordenar_lista_campo(lista_empleados : list, criterio: str, descendente: bool = False):
+        for i in range (len(lista_empleados)-1):
+            for j in range (i+1, len(lista_empleados)):
+                if lista_empleados[i][criterio] > lista_empleados [j][criterio]:
+                    auxiliar = lista_empleados[i]
+                    lista_empleados[i] = lista_empleados [j]
+                    lista_empleados [j] = auxiliar
 
 ''' BÚSQUEDAS '''
 def buscar_dato_dict(lista: list, campo: str, valor) -> dict:
